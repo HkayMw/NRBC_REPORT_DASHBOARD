@@ -13,6 +13,7 @@ master list of zones and centers.
 ## Features
 
 **Data quality**
+
 - Resubmitted reports (same zone, center and date) are removed, keeping the
   latest submission.
 - Rows with missing, negative or fractional counts are flagged.
@@ -22,6 +23,7 @@ master list of zones and centers.
   can't be matched confidently are confirmed once by an admin and remembered.
 
 **Zone and center reconciliation**
+
 - Submitted zone and center names are checked against the phase's master list.
 - Unknown names get a best-guess suggestion (fuzzy matching, and noise such
   as "Primary School" stripped) for an admin to confirm.
@@ -29,6 +31,7 @@ master list of zones and centers.
   in a warning, so totals are never silently wrong.
 
 **Reporting**
+
 - Birth and NID registration totals, by zone, by center, over time and by sex.
 - District scope and zone, center and date filters.
 - Reporting status: which centers reported on which days, and a completion
@@ -37,6 +40,7 @@ master list of zones and centers.
   charts, a trend sheet and a sheet of flagged rows.
 
 **Phases and access**
+
 - Admins create, edit and switch phases in the app.
 - Viewers see the dashboard. Admins (PIN in the sidebar) manage phases, data
   sources, column mapping, name corrections and exports.
@@ -47,16 +51,16 @@ master list of zones and centers.
 districts, and 297 daily responses over 10 days. Every name and figure is made
 up. The responses contain the problems the dashboard is built to catch:
 
-| Planted problem | Where it shows |
-|---|---|
-| 6 corrected resubmissions | Data Quality Review: duplicates removed |
-| Mistyped center names ("Oakrige", "Eastwod P/S", "Silver Lake", "Brookside Primary School") | Center Assignment, with suggestions |
-| Mistyped zone names ("Greenfeild", "Palmgrove") | Zone Assignment, with suggestions |
-| Missing, negative and fractional counts | Data Quality Review warnings |
-| Day and month swapped in 2 dates | Auto-corrected and listed |
-| 2 dates outside the activity window | Flagged and excluded |
-| Renamed headers ("Centre Name", "Reporting Date", "Male NID") | Matched automatically |
-| A center that never reported, and one that reports patchily | Reporting Status and completion report |
+| Planted problem                                                                             | Where it shows                          |
+| ------------------------------------------------------------------------------------------- | --------------------------------------- |
+| 6 corrected resubmissions                                                                   | Data Quality Review: duplicates removed |
+| Mistyped center names ("Oakrige", "Eastwod P/S", "Silver Lake", "Brookside Primary School") | Center Assignment, with suggestions     |
+| Mistyped zone names ("Greenfeild", "Palmgrove")                                             | Zone Assignment, with suggestions       |
+| Missing, negative and fractional counts                                                     | Data Quality Review warnings            |
+| Day and month swapped in 2 dates                                                            | Auto-corrected and listed               |
+| 2 dates outside the activity window                                                         | Flagged and excluded                    |
+| Renamed headers ("Centre Name", "Reporting Date", "Male NID")                               | Matched automatically                   |
+| A center that never reported, and one that reports patchily                                 | Reporting Status and completion report  |
 
 Run it locally with the demo settings:
 
@@ -73,14 +77,14 @@ The admin PIN for the demo is `2468`. Regenerate the data with
 Set these in `.streamlit/secrets.toml`, in the Secrets box on Streamlit
 Community Cloud, or as environment variables. All are optional.
 
-| Setting | Effect |
-|---|---|
-| `ADMIN_PIN` | Fixed admin PIN. It can't be changed in the app. |
-| `DEMO_MODE` | Locks phase and data-source settings. Name corrections and column mappings stay in the visitor's session. |
-| `MONGODB_URI` | Save to MongoDB Atlas instead of local files (see Storage). Ignored in `DEMO_MODE`. |
-| `MONGODB_DB` | Database name (default `nrbc_dashboard`). |
-| `REPORTING_TIMEZONE` | IANA time zone for "today" defaults (default `Africa/Blantyre`). |
-| `[initial_phase]` | The first phase, created when none exists: `office_name`, `title`, `start_date`, `end_date`, `response_sheet_url`, `master_sheet_url`. |
+| Setting              | Effect                                                                                                                                 |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `ADMIN_PIN`          | Fixed admin PIN. It can't be changed in the app.                                                                                       |
+| `DEMO_MODE`          | Locks phase and data-source settings. Name corrections and column mappings stay in the visitor's session.                              |
+| `MONGODB_URI`        | Save to MongoDB Atlas instead of local files (see Storage). Ignored in `DEMO_MODE`.                                                    |
+| `MONGODB_DB`         | Database name (default `nrbc_dashboard`).                                                                                              |
+| `REPORTING_TIMEZONE` | IANA time zone for "today" defaults (default `Africa/Blantyre`).                                                                       |
+| `[initial_phase]`    | The first phase, created when none exists: `office_name`, `title`, `start_date`, `end_date`, `response_sheet_url`, `master_sheet_url`. |
 
 See `.streamlit/secrets.toml.example`.
 
@@ -104,16 +108,16 @@ Then open http://localhost:8501.
 The app expects one row per center per day with these fields. Header names
 don't have to match exactly:
 
-| Field | Meaning |
-|---|---|
-| Timestamp | Submission time (added by Google Forms) |
-| ZONE NAME | Zone the center belongs to |
-| CENTER NAME | Registration center |
-| Date | Day being reported |
-| Total Male Births Registered | Count |
-| Total Female Births Registered | Count |
-| Total Males Processed | NID registrations, male |
-| Total Females Processed | NID registrations, female |
+| Field                          | Meaning                                 |
+| ------------------------------ | --------------------------------------- |
+| Timestamp                      | Submission time (added by Google Forms) |
+| ZONE NAME                      | Zone the center belongs to              |
+| CENTER NAME                    | Registration center                     |
+| Date                           | Day being reported                      |
+| Total Male Births Registered   | Count                                   |
+| Total Female Births Registered | Count                                   |
+| Total Males Processed          | NID registrations, male                 |
+| Total Females Processed        | NID registrations, female               |
 
 Link the response sheet shared as "Anyone with the link can view". The app
 reads its CSV export, so no Google credentials are needed. A direct link to a
@@ -131,11 +135,11 @@ or CSV file. See [`examples/master_list_template.csv`](examples/master_list_temp
 
 What admins change is saved in one of two places:
 
-| Saved item | Local files (default) | MongoDB (`MONGODB_URI` set) |
-|---|---|---|
-| Admin PIN hash, confirmed column mapping | `config.json` | `settings` collection, `_id: "config"` |
-| Phases, sheet links, name corrections | `phases.json` | `settings` collection, `_id: "phases"` |
-| Uploaded master lists | `masters/` | `files` collection |
+| Saved item                               | Local files (default) | MongoDB (`MONGODB_URI` set)            |
+| ---------------------------------------- | --------------------- | -------------------------------------- |
+| Admin PIN hash, confirmed column mapping | `config.json`         | `settings` collection, `_id: "config"` |
+| Phases, sheet links, name corrections    | `phases.json`         | `settings` collection, `_id: "phases"` |
+| Uploaded master lists                    | `masters/`            | `files` collection                     |
 
 Local files suit a host with a persistent disk. They are git-ignored and must
 never be committed, because they hold sheet links and the PIN hash.
@@ -158,12 +162,12 @@ setting brings its phase back.
 
 Deploy the same repo twice with different settings:
 
-| | Public demo | Live |
-|---|---|---|
-| `DEMO_MODE` | `true` | not set |
-| `ADMIN_PIN` | published demo PIN | private PIN, or not set (PIN managed in the app) |
-| `[initial_phase]` | fictional sheets or `examples/demo` CSVs | optional |
-| `MONGODB_URI` | not set | set, unless the host keeps local files |
+|                   | Public demo                              | Live                                             |
+| ----------------- | ---------------------------------------- | ------------------------------------------------ |
+| `DEMO_MODE`       | `true`                                   | not set                                          |
+| `ADMIN_PIN`       | published demo PIN                       | private PIN, or not set (PIN managed in the app) |
+| `[initial_phase]` | fictional sheets or `examples/demo` CSVs | optional                                         |
+| `MONGODB_URI`     | not set                                  | set, unless the host keeps local files           |
 
 Real sheet links, PINs and connection strings live only in the live host's
 settings, never in the repo.
@@ -190,3 +194,7 @@ Code layout:
 
 Set `REPORTING_TIMEZONE` (an IANA name, default `Africa/Blantyre`) so the
 "today" defaults follow the office's local time.
+
+## Copyright
+
+© 2026 Harry Kanyumbu. All rights reserved.
