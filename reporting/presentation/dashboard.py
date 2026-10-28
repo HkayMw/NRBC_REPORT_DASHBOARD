@@ -119,6 +119,13 @@ def _default_report_range(phase_start, phase_end):
 
 
 st.set_page_config(page_title="Daily Reporting Dashboard", layout="wide")
+# Hide the hosting toolbar's Fork / GitHub / Deploy buttons. The toolbar itself
+# stays visible because it holds the button that re-opens a collapsed sidebar.
+st.markdown(
+    "<style>[data-testid='stToolbarActions'], .stDeployButton "
+    "{ display: none !important; }</style>",
+    unsafe_allow_html=True,
+)
 
 
 def _read_master_upload(uploaded):

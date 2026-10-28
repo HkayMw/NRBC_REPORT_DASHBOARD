@@ -14,15 +14,21 @@ import json
 import os
 
 
+def _streamlit_secrets():
+    """Streamlit secrets (.streamlit/secrets.toml or the host's Secrets box)."""
+    import streamlit as st
+
+    return st.secrets
+
+
 def get_setting(name: str, default=None):
     value = os.environ.get(name)
     if value not in (None, ""):
         return value
     try:
-        import streamlit as st
-
-        if name in st.secrets:
-            return st.secrets[name]
+        secrets = _streamlit_secrets()
+        if name in secrets:
+            return secrets[name]
     except Exception:
         pass
     return default
