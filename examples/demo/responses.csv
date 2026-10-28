@@ -1,0 +1,298 @@
+Timestamp,ZONE NAME,Centre Name,Reporting Date,Total Male Births Registered,Total Female Births Registered,Male NID,Female NID
+2026-07-06 15:14:02,Lakeview,Meadowbank,2026-07-06,6,2,4,10
+2026-07-06 15:35:35,Harbour,Westfield,2026-07-06,3,5,7,18
+2026-07-06 15:43:21,Greenfeild,Willow,2026-07-06,4,5,9,7
+2026-07-06 15:43:58,Harbour,Eastwod P/S,2026-07-06,5,5,6,12
+2026-07-06 15:54:50,Lakeview,Silver Lake,2026-07-06,2,4,6,15
+2026-07-06 16:01:04,Stonebridge,Stonebridge Hall,2026-07-06,3,3,13,11
+2026-07-06 16:07:13,Harbour,Harbour Clinic,2026-07-06,3,4,8,8
+2026-07-06 16:07:38,Harbour,Seaview,2026-07-06,3,7,16,18
+2026-07-06 16:27:25,Palmgrove,Coral,2026-07-06,6,7,7,10
+2026-07-06 16:27:59,Greenfield,Greenfield Clinic,2026-07-06,4,10,13,11
+2026-07-06 16:30:25,Lakeview,Clearwater,2026-07-06,1,2,13,10
+2026-07-06 16:38:01,Greenfield,Fairview,2026-07-06,3,7,12,10
+2026-07-06 16:44:47,Palm Grove,  lagoon ,2026-07-06,3,7,18,12
+2026-07-06 16:45:44,Lakeview,  lakeview market ,2026-07-06,6,6,10,20
+2026-07-06 16:48:43,Palm Grove,Tidewater,2026-07-06,1,1,5,15
+2026-07-06 17:00:21,Stonebridge,  ashford ,2026-07-06,8,8,16,20
+2026-07-06 17:09:59,Greenfield,Greenfield Clinic,2026-07-06,5,10,13,11
+2026-07-06 17:11:41,Hilltop,Oakrige,2026-07-06,2,6,8,12
+2026-07-06 17:17:03,Lakeview,Bayside,2026-07-06,3,4,2.5,20
+2026-07-06 17:27:14,Greenfield,Brookside Primary School,2026-07-06,2,2,4,7
+2026-07-06 17:32:54,Hilltop,Cedar,2026-07-06,3,5,11,14
+2026-07-06 17:40:03,Greenfield,Pinecrest,2026-07-06,1,0,6,6
+2026-07-06 17:45:57,Palm Grove,Palm Grove,2026-07-06,1,4,9,12
+2026-07-06 17:52:25,Stonebridge,Redstone,2026-07-06,4,1,5,9
+2026-07-06 18:09:29,Hilltop,Maple,2026-07-06,3,1,4,6
+2026-07-06 18:24:41,Hilltop,Sunnyside,2026-07-06,3,1,7,11
+2026-07-06 18:39:22,Hilltop,Riverbend,2026-07-06,2,5,14,8
+2026-07-06 18:50:46,Hilltop,Hilltop Market,2026-07-06,2,6,8,6
+2026-07-07 07:06:32,Harbour,Northgate,2026-07-06,7,5,15,11
+2026-07-07 09:36:22,Palm Grove,Sandhill,2026-07-06,6,5,12,3
+2026-07-07 09:56:59,Stonebridge,Foxhill,2026-07-06,5,4,7,16
+2026-07-07 15:24:08,Palm Grove,Sandhill,2026-07-07,2,7,13,13
+2026-07-07 15:25:13,Stonebridge,Stonebridge Hall,2026-07-07,5,7,18,13
+2026-07-07 15:42:09,Greenfield,Brookside Primary School,2026-07-07,0,6,11,6
+2026-07-07 15:47:28,Hilltop,Sunnyside,2026-07-07,4,8,15,13
+2026-07-07 15:53:35,Lakeview,Silver Lake,2026-07-07,3,4,7,19
+2026-07-07 15:57:43,Greenfield,Greenfield Clinic,2026-07-07,4,5,16,22
+2026-07-07 15:59:12,Lakeview,Clearwater,2026-07-07,4,8,9,14
+2026-07-07 16:03:29,Palmgrove,Coral,2026-07-07,2,2,5,12
+2026-07-07 16:33:19,Lakeview,Meadowbank,2026-07-07,4,5,10,9
+2026-07-07 16:38:41,Hilltop,Hilltop Market,2026-07-07,5,4,6,17
+2026-07-07 16:39:16,Lakeview,Lakeview Market,2026-07-07,3,8,16,13
+2026-07-07 16:47:45,Palm Grove,Palm Grove,2026-07-07,5,3,12,14
+2026-07-07 17:03:11,Stonebridge,  elmwood ,2026-07-07,4,4,9,9
+2026-07-07 17:07:10,Harbour,Harbour Clinic,2026-07-07,2,5,12,13
+2026-07-07 17:07:35,Stonebridge,Ashford,2026-07-07,6,8,22,31
+2026-07-07 17:37:52,Greenfield,Fairview,2026-07-07,6,2,13,13
+2026-07-07 17:56:14,Hilltop,Maple,2026-07-07,2,4,17,10
+2026-07-07 18:09:58,Stonebridge,  foxhill ,2026-07-07,6,3,16,13
+2026-07-07 18:12:37,Palm Grove,Lagoon,2026-07-07,6,4,12,13
+2026-07-07 18:18:13,Stonebridge,Redstone,2026-07-07,5,3,6,13
+2026-07-07 18:24:47,Harbour,Seaview,2026-07-07,6,6,15,16
+2026-07-07 18:31:41,Lakeview,Bayside,2026-07-07,4,1,14,13
+2026-07-07 18:32:34,Harbour,Eastwod P/S,2026-07-07,3,6,9,14
+2026-07-07 18:48:27,Greenfield,Pinecrest,2026-07-07,3,5,10,5
+2026-07-07 18:48:43,Hilltop,Cedar,2026-07-07,6,10,15,21
+2026-07-07 18:49:53,Harbour,Westfield,2026-07-07,7,8,18,18
+2026-07-08 09:39:16,Harbour,Northgate,2026-07-07,5,4,10,11
+2026-07-08 15:19:18,Harbour,  seaview ,2026-07-08,6,11,23,17
+2026-07-08 15:23:31,Stonebridge,Elmwood,2026-07-08,3,2,11,13
+2026-07-08 15:34:06,Hilltop,Cedar,2026-07-08,6,7,20,14
+2026-07-08 15:38:38,Harbour,Eastwod P/S,2026-07-08,6,8,21,14
+2026-07-08 15:44:01,Harbour,Northgate,2026-07-08,5,13,15,22
+2026-07-08 15:47:18,Greenfield,Pinecrest,2026-07-08,4,3,14,10
+2026-07-08 16:10:46,Hilltop,Hilltop Market,2026-07-08,5,4,10,14
+2026-07-08 16:12:22,Lakeview,Clearwater,2026-07-08,3,11,14,14
+2026-07-08 16:20:06,Palm Grove,Sandhill,2026-07-08,5,5,15,19
+2026-07-08 16:33:29,Hilltop,Oakrige,2026-07-08,2,5,6,11
+2026-07-08 16:38:29,Palm Grove,Palm Grove,2026-07-08,7,7,12,14
+2026-07-08 16:39:03,Greenfeild,Willow,2026-07-08,5,6,9,17
+2026-07-08 16:44:21,Greenfield,Brookside Primary School,2026-07-08,1,4,15,14
+2026-07-08 17:11:32,Palmgrove,  coral ,2026-07-08,5,3,10,11
+2026-07-08 17:27:18,Stonebridge,Redstone,2026-07-08,6,4,13,18
+2026-07-08 17:27:20,Stonebridge,Stonebridge Hall,2026-07-08,0,6,18,14
+2026-07-08 17:32:41,Hilltop,Riverbend,2026-07-08,5,2,2.5,14
+2026-07-08 17:32:47,Palm Grove,Lagoon,2026-07-08,1,2,18,21
+2026-07-08 17:35:54,Harbour,Westfield,2026-07-08,6,4,13,13
+2026-07-08 17:42:44,Greenfield,  fairview ,2026-07-08,4,1,12,15
+2026-07-08 17:45:45,Lakeview,Lakeview Market,2026-07-08,5,4,17,18
+2026-07-08 17:53:44,Harbour,Dockside,2026-07-08,12,4,16,19
+2026-07-08 17:57:29,Hilltop,Sunnyside,2026-07-08,7,2,11,11
+2026-07-08 17:59:58,Hilltop,Maple,2026-07-08,5,4,11,18
+2026-07-08 18:07:03,Lakeview,Bayside,2026-07-08,5,6,15,20
+2026-07-08 18:20:34,Stonebridge,Foxhill,2026-07-08,7,3,14,17
+2026-07-08 18:34:17,Stonebridge,Ashford,2026-07-08,4,6,16,16
+2026-07-08 18:51:40,Harbour,Harbour Clinic,2026-07-08,6,7,14,13
+2026-07-09 08:46:37,Lakeview,Silver Lake,2026-07-08,9,5,9,10
+2026-07-09 08:47:55,Greenfield,Greenfield Clinic,2026-07-08,3,5,11,20
+2026-07-09 09:00:38,Palm Grove,Tidewater,2026-07-08,7,4,12,13
+2026-07-09 15:19:56,Harbour,Seaview,2026-07-09,6,7,18,22
+2026-07-09 15:34:24,Palm Grove,Sandhill,2026-07-09,8,4,12,18
+2026-07-09 15:35:03,Palmgrove,Coral,2026-07-09,2,7,15,15
+2026-07-09 15:46:06,Greenfield,Pinecrest,2026-07-09,7,4,5,11
+2026-07-09 15:53:33,Harbour,Northgate,2026-07-09,5,8,12,15
+2026-07-09 16:08:09,Stonebridge,Ashford,2026-07-09,5,11,7,28
+2026-07-09 16:39:11,Greenfield,Fairview,2026-07-30,5,3,15,14
+2026-07-09 16:45:32,Lakeview,Clearwater,2026-07-09,4,8,17,20
+2026-07-09 16:59:00,Palm Grove,Palm Grove,2026-07-09,7,7,9,11
+2026-07-09 17:05:51,Harbour,Westfield,2026-07-09,9,6,17,27
+2026-07-09 17:10:52,Stonebridge,Redstone,2026-07-09,7,4,15,11
+2026-07-09 17:18:55,Hilltop,Hilltop Market,2026-07-09,2,8,10,10
+2026-07-09 17:19:16,Hilltop,Oakrige,2026-07-09,5,2,16,14
+2026-07-09 17:19:17,Stonebridge,Elmwood,2026-07-09,3,4,7,11
+2026-07-09 17:21:57,Harbour,Harbour Clinic,2026-07-09,9,1,12,21
+2026-07-09 17:22:12,Lakeview,Silver Lake,2026-07-09,5,5,16,20
+2026-07-09 17:29:08,Harbour,Eastwod P/S,2026-07-09,1,5,11,20
+2026-07-09 17:30:34,Palm Grove,Lagoon,2026-07-09,4,5,16,19
+2026-07-09 17:33:29,Lakeview,Meadowbank,2026-07-09,4,,7,9
+2026-07-09 17:45:41,Hilltop,Sunnyside,2026-07-09,9,3,20,17
+2026-07-09 17:53:22,Stonebridge,Foxhill,2026-07-09,3,5,15,23
+2026-07-09 18:02:24,Stonebridge,Stonebridge Hall,2026-07-09,9,7,17,24
+2026-07-09 18:20:19,Greenfeild,Willow,2026-09-07,4,2,11,20
+2026-07-09 18:43:25,Hilltop,Riverbend,2026-07-09,10,3,16,24
+2026-07-09 18:54:41,Hilltop,Maple,2026-07-09,2,4,14,14
+2026-07-10 07:59:42,Lakeview,Bayside,2026-07-09,3,4,15,18
+2026-07-10 08:40:59,Hilltop,Cedar,2026-07-09,5,9,20,20
+2026-07-10 15:01:28,Hilltop,Sunnyside,2026-07-10,4,7,13,19
+2026-07-10 15:13:13,Hilltop,Hilltop Market,2026-07-10,2,6,16,13
+2026-07-10 15:24:38,Palm Grove,Sandhill,2026-07-10,8,7,12,15
+2026-07-10 15:25:03,Harbour,Westfield,2026-07-10,9,8,21,11
+2026-07-10 15:26:10,Lakeview,Bayside,2026-07-10,6,4,27,21
+2026-07-10 15:42:17,Harbour,Dockside,2026-07-10,2,8,19,23
+2026-07-10 15:45:50,Harbour,Northgate,2026-07-10,5,6,18,21
+2026-07-10 15:48:45,Greenfield,Fairview,2026-07-10,8,2,13,19
+2026-07-10 15:53:19,Palm Grove,Lagoon,2026-07-10,4,6,25,25
+2026-07-10 16:05:39,Greenfield,Brookside Primary School,2026-07-10,8,4,8,22
+2026-07-10 16:08:11,Hilltop,Maple,2026-07-10,3,2,13,9
+2026-07-10 16:11:10,Lakeview,Bayside,2026-07-10,6,5,27,21
+2026-07-10 16:30:45,Lakeview,Lakeview Market,2026-07-10,7,5,7,29
+2026-07-10 16:47:15,Greenfield,Greenfield Clinic,2026-07-10,4,4,23,19
+2026-07-10 16:50:44,Palm Grove,Tidewater,2026-07-10,6,4,14,12
+2026-07-10 17:16:41,Lakeview,  silver lake ,2026-07-10,8,5,17,17
+2026-07-10 17:18:16,Lakeview,Meadowbank,2026-07-10,8,3,17,16
+2026-07-10 17:18:40,Stonebridge,Elmwood,2026-07-10,5,3,6,12
+2026-07-10 17:28:29,Harbour,Seaview,2026-07-10,8,4,9,24
+2026-07-10 17:30:50,Stonebridge,Redstone,2026-07-10,2,5,15,7
+2026-07-10 17:45:45,Palm Grove,  palm grove ,2026-10-07,4,2,12,17
+2026-07-10 17:51:01,Stonebridge,Ashford,2026-07-10,3,5,21,25
+2026-07-10 18:02:01,Lakeview,Clearwater,2026-07-10,7,2,16,19
+2026-07-10 18:03:07,Palmgrove,  coral ,2026-07-10,3,2,15,13
+2026-07-10 18:04:10,Stonebridge,Foxhill,2026-07-10,2,6,14,13
+2026-07-10 18:16:53,Harbour,Harbour Clinic,2026-07-10,3,3,13,16
+2026-07-10 18:18:56,Hilltop,Riverbend,2026-07-10,7,0,20,22
+2026-07-10 18:45:56,Stonebridge,Stonebridge Hall,2026-07-10,5,7,20,24
+2026-07-10 18:55:47,Hilltop,Cedar,2026-07-10,7,5,18,19
+2026-07-10 20:06:56,Stonebridge,Stonebridge Hall,2026-07-10,5,7,18,24
+2026-07-11 15:14:56,Palm Grove,Palm Grove,2026-07-11,6,7,15,29
+2026-07-11 15:16:17,Stonebridge,  ashford ,2026-07-11,3,8,17,25
+2026-07-11 15:35:03,Greenfeild,Willow,2026-07-11,3,4,14,12
+2026-07-11 15:42:19,Palm Grove,Lagoon,2026-07-11,5,9,19,20
+2026-07-11 15:43:36,Palm Grove,Tidewater,2026-07-11,5,6,11,19
+2026-07-11 15:45:23,Greenfield,  greenfield clinic ,2026-07-11,6,8,11,27
+2026-07-11 15:51:36,Harbour,Dockside,2026-07-11,11,8,17,19
+2026-07-11 15:54:57,Harbour,Eastwod P/S,2026-07-11,8,4,16,16
+2026-07-11 15:55:43,Harbour,Northgate,2026-07-11,7,7,17,12
+2026-07-11 16:05:49,Greenfield,Brookside Primary School,2026-07-11,7,3,8,15
+2026-07-11 16:05:52,Harbour,Seaview,2026-07-11,7,5,20,16
+2026-07-11 16:09:00,Hilltop,Maple,2026-07-11,4,5,7,6
+2026-07-11 16:35:00,Stonebridge,Redstone,2026-07-11,4,1,13,9
+2026-07-11 16:35:04,Harbour,Harbour Clinic,2026-07-11,5,2,8,16
+2026-07-11 16:35:40,Greenfield,Fairview,2026-07-11,4,6,9,10
+2026-07-11 16:36:23,Greenfield,  greenfield clinic ,2026-07-11,6,8,9,27
+2026-07-11 16:38:05,Stonebridge,Stonebridge Hall,2026-07-11,11,9,14,29
+2026-07-11 16:48:31,Stonebridge,Foxhill,2026-07-11,10,7,6,33
+2026-07-11 16:53:26,Hilltop,Cedar,2026-07-11,4,7,17,23
+2026-07-11 17:02:34,Greenfield,Pinecrest,2026-07-11,2,4,9,5
+2026-07-11 17:42:28,Lakeview,Bayside,2026-07-11,9,8,12,16
+2026-07-11 17:56:07,Lakeview,Clearwater,2026-07-11,10,9,14,22
+2026-07-11 18:10:36,Hilltop,Riverbend,2026-07-11,6,5,17,15
+2026-07-11 18:13:17,Hilltop,Hilltop Market,2026-07-11,5,3,17,14
+2026-07-11 18:21:43,Palm Grove,Sandhill,2026-07-11,7,6,21,27
+2026-07-11 18:40:46,Lakeview,Silver Lake,2026-07-11,8,8,12,14
+2026-07-11 18:42:16,Lakeview,Meadowbank,2026-07-11,4,2,7,13
+2026-07-11 18:42:46,Lakeview,Lakeview Market,2026-07-11,4,5,21,20
+2026-07-11 18:52:56,Palmgrove,Coral,2026-07-11,3,4,8,12
+2026-07-11 18:53:43,Palm Grove,Sandhill,2026-07-11,8,6,21,27
+2026-07-11 18:53:54,Harbour,Westfield,2026-07-11,5,5,13,20
+2026-07-12 09:18:47,Hilltop,Sunnyside,2026-07-11,11,4,17,14
+2026-07-12 15:44:28,Harbour,Westfield,2026-07-12,9,5,22,23
+2026-07-12 15:45:01,Lakeview,Bayside,2026-07-12,7,5,9,28
+2026-07-12 15:52:13,Stonebridge,Elmwood,2026-07-12,4,6,17,11
+2026-07-12 15:53:19,Stonebridge,Foxhill,2026-07-12,8,8,17,13
+2026-07-12 16:02:22,Lakeview,Silver Lake,2026-07-12,5,6,16,23
+2026-07-12 16:06:22,Greenfield,Fairview,2026-07-12,5,6,7,8
+2026-07-12 16:10:39,Hilltop,Riverbend,2026-07-12,3,5,19,14
+2026-07-12 16:32:28,Palm Grove,Palm Grove,2026-07-12,5,3,18,15
+2026-07-12 16:51:05,Palmgrove,Coral,2026-07-12,4,3,11,9
+2026-07-12 17:00:25,Palm Grove,Sandhill,2026-07-12,5,6,22,22
+2026-07-12 17:03:27,Palm Grove,Tidewater,2026-07-12,8,4,11,23
+2026-07-12 17:06:38,Lakeview,  clearwater ,2026-07-12,2,8,14,15
+2026-07-12 17:09:19,Harbour,Seaview,2026-07-12,8,6,16,18
+2026-07-12 17:16:58,Hilltop,  cedar ,2026-07-12,4,6,15,17
+2026-07-12 17:22:01,Harbour,Eastwod P/S,2026-07-12,4,4,25,12
+2026-07-12 17:41:51,Greenfield,Greenfield Clinic,2026-07-12,11,8,23,24
+2026-07-12 17:42:27,Palm Grove,Tidewater,2026-07-12,11,4,11,23
+2026-07-12 17:44:06,Hilltop,Sunnyside,2026-07-12,4,8,8,13
+2026-07-12 17:44:22,Greenfield,Brookside Primary School,2026-07-12,3,5,-3,13
+2026-07-12 17:47:35,Lakeview,Meadowbank,2026-07-12,4,5,9,20
+2026-07-12 18:23:19,Stonebridge,Stonebridge Hall,2026-07-12,3,7,27,27
+2026-07-12 18:26:46,Hilltop,Hilltop Market,2026-07-12,5,7,11,16
+2026-07-12 18:28:36,Lakeview,Lakeview Market,2026-07-12,4,5,15,20
+2026-07-12 18:30:37,Harbour,  harbour clinic ,2026-07-12,6,6,11,14
+2026-07-12 18:43:01,Stonebridge,Ashford,2026-07-12,8,13,16,32
+2026-07-12 18:47:30,Harbour,Northgate,2026-07-12,7,8,13,14
+2026-07-12 18:58:53,Hilltop,Oakrige,2026-07-12,6,6,14,5
+2026-07-13 08:24:56,Palm Grove,Lagoon,2026-07-12,8,5,15,18
+2026-07-13 11:58:35,Greenfeild,Willow,2026-07-12,11,4,12,18
+2026-07-13 15:06:01,Hilltop,Oakrige,2026-07-13,2,4,8,15
+2026-07-13 15:30:25,Palm Grove,Sandhill,2026-07-13,3,8,10,20
+2026-07-13 15:34:11,Palm Grove,Tidewater,2026-07-13,4,3,16,19
+2026-07-13 15:36:20,Stonebridge,Elmwood,2026-07-13,3,4,12,12
+2026-07-13 15:43:09,Hilltop,Hilltop Market,2026-07-13,2,3,9,17
+2026-07-13 15:56:26,Lakeview,Meadowbank,2026-07-13,4,2,11,14
+2026-07-13 16:13:06,Greenfield,Pinecrest,2026-07-13,3,3,6,5
+2026-07-13 16:15:17,Lakeview,Silver Lake,2026-07-13,6,2,10,13
+2026-07-13 16:35:32,Lakeview,Clearwater,2026-07-13,5,5,14,26
+2026-07-13 16:46:15,Lakeview,Bayside,2026-07-13,4,9,19,15
+2026-07-13 16:57:51,Palmgrove,Coral,2026-07-13,4,3,10,12
+2026-07-13 17:05:07,Stonebridge,Redstone,2026-07-13,4,4,11,8
+2026-07-13 17:14:29,Palm Grove,  lagoon ,2026-07-13,3,6,15,18
+2026-07-13 17:19:34,Harbour,Seaview,2026-07-13,3,3,15,14
+2026-07-13 17:29:17,Harbour,Harbour Clinic,2026-07-13,3,3,,9
+2026-07-13 17:41:32,Lakeview,Lakeview Market,2026-07-13,6,3,12,8
+2026-07-13 17:43:22,Greenfield,Fairview,2026-07-13,7,7,14,16
+2026-07-13 18:05:40,Harbour,Eastwod P/S,2026-07-13,3,10,10,9
+2026-07-13 18:16:54,Hilltop,Riverbend,2026-07-13,4,5,20,17
+2026-07-13 18:20:17,Harbour,Westfield,2026-07-13,7,4,25,18
+2026-07-13 18:23:57,Harbour,Northgate,2026-07-13,3,5,13,17
+2026-07-13 18:35:08,Greenfeild,Willow,2026-07-13,4,2,8,14
+2026-07-13 18:35:20,Palm Grove,Palm Grove,2026-07-13,7,7,19,9
+2026-07-13 18:40:41,Stonebridge,Foxhill,2026-07-13,4,5,14,21
+2026-07-13 18:51:23,Greenfield,Greenfield Clinic,2026-07-13,5,3,19,15
+2026-07-13 18:58:48,Hilltop,Sunnyside,2026-07-13,3,6,14,17
+2026-07-14 07:59:11,Stonebridge,Ashford,2026-07-13,5,5,22,28
+2026-07-14 08:15:24,Greenfield,Brookside Primary School,2026-07-13,4,4,5,8
+2026-07-14 08:19:30,Stonebridge,Stonebridge Hall,2026-07-13,9,9,14,28
+2026-07-14 09:53:49,Hilltop,Maple,2026-07-13,2,0,9,6
+2026-07-14 15:03:48,Hilltop,Sunnyside,2026-07-14,2,2,11,12
+2026-07-14 15:10:17,Greenfield,Brookside Primary School,2026-07-14,1,2,14,10
+2026-07-14 15:16:57,Stonebridge,Elmwood,2026-07-14,3,3,14,16
+2026-07-14 15:20:24,Hilltop,Oakrige,2026-07-14,3,3,15,10
+2026-07-14 15:27:30,Greenfield,Greenfield Clinic,2026-07-14,4,4,13,14
+2026-07-14 15:28:20,Lakeview,Bayside,2026-07-14,4,7,14,20
+2026-07-14 15:55:18,Stonebridge,Stonebridge Hall,2026-07-14,5,3,15,19
+2026-07-14 16:00:58,Greenfeild,Willow,2026-07-14,3,2,9,8
+2026-07-14 16:07:07,Harbour,Westfield,2026-07-14,3,9,16,15
+2026-07-14 16:15:12,Palm Grove,Lagoon,2026-07-14,6,4,16,11
+2026-07-14 16:24:01,Lakeview,Silver Lake,2026-07-14,4,2,12,14
+2026-07-14 16:24:45,Palm Grove,Palm Grove,2026-07-14,4,6,13,14
+2026-07-14 16:50:23,Hilltop,Cedar,2026-07-14,4,3,6,13
+2026-07-14 17:04:49,Lakeview,Meadowbank,2026-07-14,3,2,11,13
+2026-07-14 17:05:42,Lakeview,Clearwater,2026-07-14,4,8,11,19
+2026-07-14 17:08:20,Harbour,Harbour Clinic,2026-07-14,6,1,11,14
+2026-07-14 17:18:05,Hilltop,Hilltop Market,2026-07-14,4,0,7,15
+2026-07-14 17:18:12,Palm Grove,Tidewater,2026-07-14,8,1,9,21
+2026-07-14 17:45:52,Stonebridge,Ashford,2026-07-14,7,9,16,23
+2026-07-14 17:47:51,Harbour,Eastwod P/S,2026-07-14,3,6,9,10
+2026-07-14 17:53:44,Stonebridge,Foxhill,2026-07-14,3,4,13,16
+2026-07-14 18:02:44,Palm Grove,Sandhill,2026-07-14,8,6,13,21
+2026-07-14 18:04:04,Greenfield,Fairview,2026-07-14,6,7,9,6
+2026-07-14 18:17:33,Lakeview,Lakeview Market,2026-07-14,7,2,9,12
+2026-07-14 18:19:16,Stonebridge,Redstone,2026-07-14,5,4,12,4
+2026-07-14 18:37:07,Harbour,Northgate,2026-07-14,4,2,13,8
+2026-07-14 18:41:56,Greenfield,Pinecrest,2026-07-14,3,3,9,13
+2026-07-15 06:28:41,Harbour,Dockside,2026-07-14,5,7,17,12
+2026-07-15 06:47:44,Hilltop,Riverbend,2026-07-14,7,6,12,21
+2026-07-15 07:29:11,Harbour,Seaview,2026-07-14,10,8,19,19
+2026-07-15 11:39:01,Palmgrove,Coral,2026-07-14,2,1,11,3
+2026-07-15 15:01:40,Hilltop,Maple,2026-07-15,4,2,5,9
+2026-07-15 15:17:58,Hilltop,Sunnyside,2026-07-15,3,7,9,7
+2026-07-15 15:32:40,Harbour,Harbour Clinic,2026-07-15,2,3,6,6
+2026-07-15 15:38:27,Palmgrove,Coral,2026-09-14,1,2,8,13
+2026-07-15 15:39:26,Lakeview,  silver lake ,2026-07-15,1,3,9,9
+2026-07-15 16:08:38,Greenfield,Pinecrest,2026-07-15,6,1,,7
+2026-07-15 16:29:28,Harbour,Northgate,2026-07-15,2,3,9,13
+2026-07-15 16:31:31,Greenfield,Greenfield Clinic,2026-07-15,3,2,15,11
+2026-07-15 16:37:48,Greenfield,Fairview,2026-07-15,4,5,11,11
+2026-07-15 16:38:53,Lakeview,Bayside,2026-07-15,5,7,10,5
+2026-07-15 16:44:02,Stonebridge,Elmwood,2026-07-15,2,5,7,10
+2026-07-15 16:49:31,Palm Grove,Palm Grove,2026-07-15,3,4,7,5
+2026-07-15 16:50:12,Hilltop,Riverbend,2026-07-15,5,4,8,14
+2026-07-15 16:51:10,Hilltop,Oakrige,2026-07-15,3,2,3,7
+2026-07-15 17:26:48,Palm Grove,Tidewater,2026-07-15,2,4,16,15
+2026-07-15 17:37:05,Greenfield,Brookside Primary School,2026-07-15,1,3,7,9
+2026-07-15 17:39:05,Stonebridge,Stonebridge Hall,2026-07-15,3,4,11,14
+2026-07-15 17:41:02,Harbour,Eastwod P/S,2026-07-15,5,1,8,7
+2026-07-15 17:46:14,Lakeview,Clearwater,2026-07-15,3,4,18,10
+2026-07-15 17:51:24,Palm Grove,Sandhill,2026-07-15,3,7,9,7
+2026-07-15 17:58:25,Stonebridge,Foxhill,2026-07-15,2,1,8,18
+2026-07-15 17:59:57,Stonebridge,Redstone,2026-07-15,2,1,4,6
+2026-07-15 18:06:47,Hilltop,  hilltop market ,2026-07-15,0,0,6,9
+2026-07-15 18:39:41,Harbour,Seaview,2026-07-15,3,9,14,16
+2026-07-15 18:43:58,Greenfeild,Willow,2026-07-15,2,5,6,7
+2026-07-15 18:50:28,Palm Grove,Lagoon,2026-07-15,4,5,18,19
+2026-07-15 18:52:53,Hilltop,Cedar,2026-07-15,3,7,10,17
+2026-07-16 07:07:23,Harbour,Westfield,2026-07-15,4,5,18,16
+2026-07-16 08:33:44,Lakeview,Meadowbank,2026-07-15,1,4,7,14

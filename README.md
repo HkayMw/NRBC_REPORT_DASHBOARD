@@ -41,6 +41,47 @@ master list of zones and centers.
 - Viewers see the dashboard. Admins (PIN in the sidebar) manage phases, data
   sources, column mapping, name corrections and exports.
 
+## Demo
+
+`examples/demo/` holds a fictional phase: 33 centers in 6 zones across 2
+districts, and 297 daily responses over 10 days. Every name and figure is made
+up. The responses contain the problems the dashboard is built to catch:
+
+| Planted problem | Where it shows |
+|---|---|
+| 6 corrected resubmissions | Data Quality Review: duplicates removed |
+| Mistyped center names ("Oakrige", "Eastwod P/S", "Silver Lake", "Brookside Primary School") | Center Assignment, with suggestions |
+| Mistyped zone names ("Greenfeild", "Palmgrove") | Zone Assignment, with suggestions |
+| Missing, negative and fractional counts | Data Quality Review warnings |
+| Day and month swapped in 2 dates | Auto-corrected and listed |
+| 2 dates outside the activity window | Flagged and excluded |
+| Renamed headers ("Centre Name", "Reporting Date", "Male NID") | Matched automatically |
+| A center that never reported, and one that reports patchily | Reporting Status and completion report |
+
+Run it locally with the demo settings:
+
+```bash
+cp .streamlit/secrets.toml.example .streamlit/secrets.toml
+streamlit run app.py
+```
+
+The admin PIN for the demo is `2468`. Regenerate the data with
+`python scripts/generate_demo_data.py`.
+
+## Settings
+
+Set these in `.streamlit/secrets.toml`, in the Secrets box on Streamlit
+Community Cloud, or as environment variables. All are optional.
+
+| Setting | Effect |
+|---|---|
+| `ADMIN_PIN` | Fixed admin PIN. It can't be changed in the app. |
+| `DEMO_MODE` | Locks phase and data-source settings. Name corrections and column mappings stay in the visitor's session. |
+| `REPORTING_TIMEZONE` | IANA time zone for "today" defaults (default `Africa/Blantyre`). |
+| `[initial_phase]` | The first phase, created when none exists: `office_name`, `title`, `start_date`, `end_date`, `response_sheet_url`, `master_sheet_url`. |
+
+See `.streamlit/secrets.toml.example`.
+
 ## Run it
 
 ```bash
@@ -73,8 +114,9 @@ don't have to match exactly:
 | Total Females Processed | NID registrations, female |
 
 Link the response sheet shared as "Anyone with the link can view". The app
-reads its CSV export, so no Google credentials are needed. An admin can also
-upload an `.xlsx` export for their own session.
+reads its CSV export, so no Google credentials are needed. A direct link to a
+`.csv` file, or a `.csv` path inside the project folder, also works. An admin
+can also upload an `.xlsx` export for their own session.
 
 ## The master list
 
@@ -92,8 +134,8 @@ and must never be committed, because they hold sheet links and the PIN hash:
 - `phases.json`: phases, their sheet links and name corrections
 - `masters/`: uploaded master lists
 
-On Streamlit Community Cloud, local files reset when the app restarts, so
-phases created there need to be set up again after a restart.
+On Streamlit Community Cloud, local files reset when the app restarts.
+Use the `[initial_phase]` setting so the deployment comes back set up.
 
 ## Security note
 

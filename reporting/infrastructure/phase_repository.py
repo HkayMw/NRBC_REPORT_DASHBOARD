@@ -8,11 +8,17 @@ office, location or campaign is built into the code.
 
 Phases are stored in phases.json next to the app. The file is created at
 runtime and never committed. Uploaded master lists are stored under masters/.
+
+When phases.json doesn't exist yet, the first phase can come from the
+`initial_phase` setting (see settings.py). Hosts like Streamlit Community
+Cloud reset local files on restart, so this keeps a deployment set up.
 """
 import json
 import os
 import uuid
 from datetime import date
+
+from reporting.infrastructure.settings import get_table
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 PHASES_PATH = os.path.join(PROJECT_ROOT, "phases.json")
@@ -32,6 +38,30 @@ def _save(data: dict) -> None:
         raise RuntimeError("Could not save the phase settings.") from exc
 
 
+def _initial_phase():
+    """The phase described by the initial_phase setting, or None."""
+    cfg = get_table("initial_phase")
+    if not cfg:
+        return None
+    try:
+        start = date.fromisoformat(str(cfg["start_date"]))
+        end = date.fromisoformat(str(cfg["end_date"]))
+    except (KeyError, ValueError):
+        return None
+    return {
+        "id": "phase-initial",
+        "office_name": str(cfg.get("office_name", "")),
+        "title": str(cfg.get("title", "")) or "Activity",
+        "start_date": start.isoformat(),
+        "end_date": end.isoformat(),
+        "google_sheet_url": str(cfg.get("response_sheet_url", "")),
+        "master_sheet_url": str(cfg.get("master_sheet_url", "")),
+        "master_path": "",
+        "zone_assignments": {},
+        "center_assignments": [],
+    }
+
+
 def _load() -> dict:
     if os.path.exists(PHASES_PATH):
         try:
@@ -42,7 +72,15 @@ def _load() -> dict:
             return data
         except (OSError, json.JSONDecodeError):
             pass
-    return _empty()
+    initial = _initial_phase()
+    if initial is None:
+        return _empty()
+    data = {"active_phase": initial["id"], "phases": [initial]}
+    try:
+        _save(data)
+    except RuntimeError:
+        pass  # read-only disk: keep using the setting
+    return data
 
 
 def list_phases() -> list:

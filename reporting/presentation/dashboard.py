@@ -41,14 +41,62 @@ from reporting.infrastructure.phase_repository import (
     load_zone_assignments, save_zone_assignment,
     load_center_assignments, save_center_assignment,
 )
-from reporting.presentation.auth import verify_pin, set_pin, is_default_pin_active
+from reporting.infrastructure.settings import get_flag, get_setting
+from reporting.presentation.auth import (
+    is_default_pin_active, pin_is_managed_by_settings, set_pin, verify_pin,
+)
 
 # Activity dates, office name, response sheet and master list all come from
 # the active phase (phase_repository); admins create phases in the app.
 
 # Reports for a day are expected in by 4pm local time. Set the
-# REPORTING_TIMEZONE environment variable to the office's IANA time zone.
-REPORTING_TIMEZONE = os.environ.get("REPORTING_TIMEZONE", "Africa/Blantyre")
+# REPORTING_TIMEZONE setting to the office's IANA time zone.
+REPORTING_TIMEZONE = str(get_setting("REPORTING_TIMEZONE", "Africa/Blantyre"))
+
+# DEMO_MODE locks phase and data-source settings, and keeps name corrections
+# and column mappings in the visitor's own session (see settings.py).
+DEMO_MODE = get_flag("DEMO_MODE")
+
+
+def _load_mapping():
+    if DEMO_MODE:
+        return dict(st.session_state.get("demo_mapping", {}))
+    return load_saved_mapping()
+
+
+def _save_mapping(mapping):
+    if DEMO_MODE:
+        st.session_state["demo_mapping"] = dict(mapping)
+    else:
+        save_mapping(mapping)
+
+
+def _zone_assignments():
+    if DEMO_MODE:
+        return dict(st.session_state.get("demo_zone_assignments", {}))
+    return load_zone_assignments()
+
+
+def _assign_zone(raw_zone, correct_zone):
+    if DEMO_MODE:
+        st.session_state.setdefault("demo_zone_assignments", {})[raw_zone] = correct_zone
+    else:
+        save_zone_assignment(raw_zone, correct_zone)
+
+
+def _center_assignments():
+    if DEMO_MODE:
+        return list(st.session_state.get("demo_center_assignments", []))
+    return load_center_assignments()
+
+
+def _assign_center(zone, raw_center, correct_center):
+    if DEMO_MODE:
+        st.session_state.setdefault("demo_center_assignments", []).append(
+            {"zone": zone, "raw_center": raw_center, "center": correct_center}
+        )
+    else:
+        save_center_assignment(zone, raw_center, correct_center)
 
 
 def _default_report_range(phase_start, phase_end):
@@ -157,6 +205,14 @@ st.caption(
     "two separate activities captured on the same form — they're tracked "
     "side-by-side below, not as a before/after pipeline."
 )
+if DEMO_MODE:
+    _demo_pin = get_setting("ADMIN_PIN")
+    st.info(
+        "**Demo with fictional data.** Every office, place and figure here is made up. "
+        + (f"Log in as admin in the sidebar with PIN **{_demo_pin}** to try zone and "
+           "center name corrections and the Excel exports. " if _demo_pin else "")
+        + "Phase settings are locked, and any corrections you make are only visible to you."
+    )
 
 # ------------------------------------------------------------------
 # Session state init
@@ -177,14 +233,15 @@ if st.session_state.is_admin:
         st.rerun()
     if is_default_pin_active():
         st.sidebar.warning("Still using the default PIN (1234) — change it below.")
-    with st.sidebar.expander("Change admin PIN"):
-        new_pin = st.text_input("New PIN", type="password", key="new_pin_input")
-        if st.button("Update PIN"):
-            if new_pin and len(new_pin) >= 4:
-                set_pin(new_pin)
-                st.sidebar.success("PIN updated.")
-            else:
-                st.sidebar.error("PIN must be at least 4 characters.")
+    if not pin_is_managed_by_settings() and not DEMO_MODE:
+        with st.sidebar.expander("Change admin PIN"):
+            new_pin = st.text_input("New PIN", type="password", key="new_pin_input")
+            if st.button("Update PIN"):
+                if new_pin and len(new_pin) >= 4:
+                    set_pin(new_pin)
+                    st.sidebar.success("PIN updated.")
+                else:
+                    st.sidebar.error("PIN must be at least 4 characters.")
 else:
     pin_attempt = st.sidebar.text_input("Enter admin PIN", type="password", key="pin_attempt")
     if st.sidebar.button("Log in"):
@@ -195,13 +252,15 @@ else:
             st.sidebar.error("Incorrect PIN.")
 
 is_admin = st.session_state.is_admin
+# Admins manage phases and data sources, except in the locked demo.
+can_manage = is_admin and not DEMO_MODE
 
 # ------------------------------------------------------------------
 # Active phase (activity): office name, title, dates, sheets and master
 # list all come from here; admins create/switch phases without code changes.
 # ------------------------------------------------------------------
 if phase is None:
-    if is_admin:
+    if can_manage:
         st.info("No phase has been set up yet. Create the first one below.")
         _render_create_phase_form()
     else:
@@ -211,7 +270,9 @@ if phase is None:
 phase_start, phase_end = phase_dates(phase)
 st.info(f"**Activity:** {phase['title']}  ({phase_start.strftime('%d %b %Y')} – {phase_end.strftime('%d %b %Y')})")
 
-if is_admin:
+if is_admin and DEMO_MODE:
+    st.caption("Phase and data-source settings are locked in this demo.")
+if can_manage:
     with st.expander("🗃️ Phases / Activities (admin)"):
         all_phases = list_phases()
         labels = {p["id"]: f"{p['title']} ({p['start_date']} – {p['end_date']})" for p in all_phases}
@@ -297,7 +358,7 @@ if is_admin:
 raw_df = None
 saved_url = phase.get("google_sheet_url", "")
 
-if is_admin:
+if can_manage:
     st.subheader("Data Source (admin)")
     source_mode = st.radio(
         "Where should the data come from?",
@@ -360,7 +421,7 @@ if raw_df is None:
 # Column mapping — resilient to header drift (renamed/reordered columns)
 # ------------------------------------------------------------------
 raw_headers = list(raw_df.columns)
-saved_mapping = load_saved_mapping()
+saved_mapping = _load_mapping()
 
 mapping = {h: c for h, c in saved_mapping.items() if h in raw_headers}
 already_mapped_canonicals = set(mapping.values())
@@ -403,7 +464,7 @@ if needs_review or len(mapping) < len(REQUIRED_FIELDS):
                     mapping[choice] = canonical
 
             if st.button("Confirm mapping"):
-                save_mapping(mapping)
+                _save_mapping(mapping)
                 st.rerun()
     else:
         st.warning("The data connection needs setup by an admin before this can be shown.")
@@ -456,8 +517,8 @@ def _cached_pipeline(raw_df, zone_assignments, center_assignments, master_df, p_
     return dataset.cleaned_data, dataset.quality_report, dataset.master_reference
 
 
-zone_assignments = load_zone_assignments()
-center_assignments = load_center_assignments()
+zone_assignments = _zone_assignments()
+center_assignments = _center_assignments()
 cleaned_df, report, master_df = _cached_pipeline(
     raw_df, zone_assignments, center_assignments,
     master_df, phase_start, phase_end,
@@ -538,7 +599,7 @@ with st.expander("🔍 Data Quality Review", expanded=False):
                 chosen = c2.selectbox("Correct zone", zone_options, index=default_idx,
                                        key=f"zoneassign_{u['zone']}", label_visibility="collapsed")
                 if c3.button("Assign", key=f"zoneassign_btn_{u['zone']}"):
-                    save_zone_assignment(u["zone"], chosen)
+                    _assign_zone(u["zone"], chosen)
                     st.rerun()
         else:
             st.dataframe(pd.DataFrame(unmatched_zones))
@@ -573,7 +634,7 @@ with st.expander("🔍 Data Quality Review", expanded=False):
                 chosen = c2.selectbox("Correct center", center_options, index=default_idx,
                                        key=f"centerassign_{u['zone']}_{u['center']}", label_visibility="collapsed")
                 if c3.button("Assign", key=f"centerassign_btn_{u['zone']}_{u['center']}"):
-                    save_center_assignment(u["zone"], u["center"], chosen)
+                    _assign_center(u["zone"], u["center"], chosen)
                     st.rerun()
         else:
             st.dataframe(pd.DataFrame(unmatched_centers))
