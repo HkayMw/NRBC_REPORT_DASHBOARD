@@ -118,7 +118,7 @@ def _default_report_range(phase_start, phase_end):
     return phase_start, default_end, max_bound
 
 
-st.set_page_config(page_title="Daily Reporting Dashboard", layout="wide")
+st.set_page_config(page_title="Daily Reporting Dashboard", page_icon="🪪", layout="wide")
 # Hide the hosting toolbar's Fork / GitHub / Deploy buttons. The toolbar itself
 # stays visible because it holds the button that re-opens a collapsed sidebar.
 st.markdown(
