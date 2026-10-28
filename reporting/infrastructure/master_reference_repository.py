@@ -6,7 +6,7 @@ or Excel file. It needs three columns: District, Zone and Center.
 """
 
 import io
-from pathlib import Path
+from pathlib import PurePath
 
 import pandas as pd
 
@@ -40,9 +40,8 @@ def validate_master(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def read_master_upload(data: bytes, filename: str) -> pd.DataFrame:
-    """Read and validate an uploaded master list (.csv or .xlsx)."""
-    suffix = Path(filename or "").suffix.lower()
+def _read_table(data: bytes, filename: str) -> pd.DataFrame:
+    suffix = PurePath(filename or "").suffix.lower()
     try:
         if suffix == ".xlsx":
             df = pd.read_excel(io.BytesIO(data))
@@ -54,22 +53,27 @@ def read_master_upload(data: bytes, filename: str) -> pd.DataFrame:
         raise
     except Exception as exc:
         raise MasterListError(f"Could not read the master list file: {exc}") from exc
-    return validate_master(df)
+    return df
 
 
-def load_master(sheet_url: str = "", file_path: str | Path | None = None) -> pd.DataFrame:
-    """Load, validate and prepare a phase's master list. A linked sheet
-    takes priority over an uploaded file."""
+def read_master_upload(data: bytes, filename: str) -> pd.DataFrame:
+    """Read and validate an uploaded master list (.csv or .xlsx)."""
+    return validate_master(_read_table(data, filename))
+
+
+def load_master(sheet_url: str = "", file_bytes: bytes | None = None,
+                filename: str = "") -> pd.DataFrame:
+    """Load, validate and prepare a phase's master list: a linked sheet, or
+    an uploaded file's bytes. A linked sheet takes priority."""
     if sheet_url:
         try:
             df = fetch_google_sheet(sheet_url)
         except RuntimeError as exc:
             raise MasterListError(f"Could not load the master list sheet. {exc}") from exc
-    elif file_path:
-        path = Path(file_path)
-        if not path.exists():
+    elif filename:
+        if not file_bytes:
             raise MasterListError("The uploaded master list file is missing. Upload it again.")
-        df = pd.read_excel(path) if path.suffix.lower() == ".xlsx" else pd.read_csv(path)
+        df = _read_table(file_bytes, filename)
     else:
         raise MasterListError("This phase has no master list of zones and centers yet.")
     return prepare_master(validate_master(df))

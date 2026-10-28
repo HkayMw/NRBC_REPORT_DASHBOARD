@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from unittest import mock
 
-from reporting.infrastructure import google_sheets
+from reporting.infrastructure import google_sheets, storage
 from reporting.infrastructure import master_reference_repository as masters
 from reporting.infrastructure import phase_repository as phases
 from reporting.presentation import auth
@@ -24,11 +24,10 @@ INITIAL = {
 class InitialPhaseTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
-        root = self.tmp.name
+        self.root = self.tmp.name
         self.patches = [
-            mock.patch.object(phases, "PROJECT_ROOT", root),
-            mock.patch.object(phases, "PHASES_PATH", os.path.join(root, "phases.json")),
-            mock.patch.object(phases, "MASTERS_DIR", os.path.join(root, "masters")),
+            mock.patch.object(storage, "PROJECT_ROOT", self.root),
+            mock.patch.dict(os.environ, {"MONGODB_URI": "", "DEMO_MODE": ""}),
         ]
         for p in self.patches:
             p.start()
@@ -43,7 +42,7 @@ class InitialPhaseTests(unittest.TestCase):
             phase = phases.get_active_phase()
         self.assertEqual(phase["office_name"], INITIAL["office_name"])
         self.assertEqual(phase["google_sheet_url"], INITIAL["response_sheet_url"])
-        self.assertTrue(os.path.exists(phases.PHASES_PATH))
+        self.assertTrue(os.path.exists(os.path.join(self.root, "phases.json")))
 
     def test_existing_phases_win_over_the_setting(self):
         with mock.patch.dict(os.environ, {"initial_phase": json.dumps(INITIAL)}):

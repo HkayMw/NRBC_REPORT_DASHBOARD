@@ -11,6 +11,7 @@ import pandas as pd
 
 from reporting.infrastructure import master_reference_repository as masters
 from reporting.infrastructure import phase_repository as phases
+from reporting.infrastructure import storage
 
 MASTER = pd.DataFrame([
     {"District": "North", "Zone": "Hilltop", "Center": "Hilltop School"},
@@ -28,11 +29,10 @@ def _xlsx_bytes(df: pd.DataFrame) -> bytes:
 class PhaseRepositoryTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
-        root = self.tmp.name
+        self.root = self.tmp.name
         self.patches = [
-            mock.patch.object(phases, "PROJECT_ROOT", root),
-            mock.patch.object(phases, "PHASES_PATH", os.path.join(root, "phases.json")),
-            mock.patch.object(phases, "MASTERS_DIR", os.path.join(root, "masters")),
+            mock.patch.object(storage, "PROJECT_ROOT", self.root),
+            mock.patch.dict(os.environ, {"MONGODB_URI": "", "DEMO_MODE": ""}),
         ]
         for p in self.patches:
             p.start()
@@ -57,7 +57,8 @@ class PhaseRepositoryTests(unittest.TestCase):
         active = phases.get_active_phase()
         self.assertEqual(active["id"], created["id"])
         self.assertEqual(active["office_name"], "Lakeside Office")
-        master = masters.load_master(file_path=phases.master_file_for(active))
+        name = active["master_path"]
+        master = masters.load_master(file_bytes=phases.read_master_file(name), filename=name)
         self.assertEqual(len(master), 3)
         self.assertIn("Zone_norm", master.columns)
 
@@ -66,18 +67,19 @@ class PhaseRepositoryTests(unittest.TestCase):
             "Phase 1", date(2026, 7, 1), date(2026, 7, 10),
             master_bytes=MASTER.to_csv(index=False).encode(), master_filename="list.csv",
         )
-        old_file = phases.master_file_for(phases.get_active_phase())
+        old_file = os.path.join(self.root, phases.get_active_phase()["master_path"])
         phases.update_phase(created["id"], master_bytes=_xlsx_bytes(MASTER),
                             master_filename="list.xlsx", office_name="New Office")
         phase = phases.get_active_phase()
         self.assertFalse(os.path.exists(old_file))
-        self.assertTrue(phases.master_file_for(phase).endswith(".xlsx"))
+        new_file = os.path.join(self.root, phase["master_path"])
+        self.assertTrue(new_file.endswith(".xlsx") and os.path.exists(new_file))
         self.assertEqual(phase["office_name"], "New Office")
 
         ok, _ = phases.delete_phase(created["id"])
         self.assertTrue(ok)
         self.assertIsNone(phases.get_active_phase())
-        self.assertFalse(os.path.exists(phases.master_file_for(phase)))
+        self.assertFalse(os.path.exists(new_file))
 
     def test_rejects_other_file_types(self):
         with self.assertRaises(ValueError):
@@ -105,7 +107,7 @@ class MasterListTests(unittest.TestCase):
     def test_linked_sheet_takes_priority_over_file(self):
         with mock.patch.object(masters, "fetch_google_sheet", return_value=MASTER) as fetch:
             data = masters.load_master(
-                sheet_url="https://example.com/sheet", file_path="missing.csv"
+                sheet_url="https://example.com/sheet", file_bytes=b"x", filename="list.csv"
             )
         fetch.assert_called_once()
         self.assertEqual(len(data), 3)

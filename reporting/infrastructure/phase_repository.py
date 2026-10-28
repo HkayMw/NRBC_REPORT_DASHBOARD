@@ -6,23 +6,22 @@ name, title, date window, response sheet, master list of zones and centers,
 and zone/center name corrections. Admins create phases in the app, so no
 office, location or campaign is built into the code.
 
-Phases are stored in phases.json next to the app. The file is created at
-runtime and never committed. Uploaded master lists are stored under masters/.
+Phases and uploaded master lists are saved through the storage layer
+(storage.py): phases.json and masters/ next to the app, or MongoDB when
+MONGODB_URI is set. The local files are created at runtime and never committed.
 
 When phases.json doesn't exist yet, the first phase can come from the
 `initial_phase` setting (see settings.py). Hosts like Streamlit Community
 Cloud reset local files on restart, so this keeps a deployment set up.
 """
-import json
 import os
 import uuid
 from datetime import date
 
 from reporting.infrastructure.settings import get_table
+from reporting.infrastructure.storage import StorageError, get_store
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-PHASES_PATH = os.path.join(PROJECT_ROOT, "phases.json")
-MASTERS_DIR = os.path.join(PROJECT_ROOT, "masters")
+PHASES_KEY = "phases"
 MASTER_FILE_TYPES = (".csv", ".xlsx")
 
 
@@ -32,10 +31,9 @@ def _empty() -> dict:
 
 def _save(data: dict) -> None:
     try:
-        with open(PHASES_PATH, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=1)
-    except OSError as exc:
-        raise RuntimeError("Could not save the phase settings.") from exc
+        get_store().save_json(PHASES_KEY, data)
+    except StorageError as exc:
+        raise RuntimeError(f"Could not save the phase settings. {exc}") from exc
 
 
 def _initial_phase():
@@ -63,15 +61,12 @@ def _initial_phase():
 
 
 def _load() -> dict:
-    if os.path.exists(PHASES_PATH):
-        try:
-            with open(PHASES_PATH, encoding="utf-8") as f:
-                data = json.load(f)
-            data.setdefault("phases", [])
-            data.setdefault("active_phase", None)
-            return data
-        except (OSError, json.JSONDecodeError):
-            pass
+    """Saved phases. Raises StorageError when the store can't be read."""
+    data = get_store().load_json(PHASES_KEY)
+    if data is not None:
+        data.setdefault("phases", [])
+        data.setdefault("active_phase", None)
+        return data
     initial = _initial_phase()
     if initial is None:
         return _empty()
@@ -110,31 +105,27 @@ def phase_dates(phase: dict):
     return date.fromisoformat(phase["start_date"]), date.fromisoformat(phase["end_date"])
 
 
-def master_file_for(phase: dict):
-    """Absolute path of the phase's uploaded master list, or None."""
-    rel = phase.get("master_path") or ""
-    return os.path.join(PROJECT_ROOT, rel) if rel else None
+def read_master_file(name: str):
+    """Bytes of an uploaded master list saved under `name`, or None."""
+    return get_store().load_file(name) if name else None
 
 
 def _remove_master_file(phase: dict) -> None:
-    path = master_file_for(phase)
-    if path:
-        try:
-            os.remove(path)
-        except OSError:
-            pass
+    if phase.get("master_path"):
+        get_store().delete_file(phase["master_path"])
 
 
 def _store_master_file(phase_id: str, master_bytes: bytes, filename: str) -> str:
-    """Save an uploaded master list (CSV or Excel) and return its relative path."""
+    """Save an uploaded master list (CSV or Excel) and return its stored name."""
     ext = os.path.splitext(filename or "")[1].lower()
     if ext not in MASTER_FILE_TYPES:
         raise ValueError("The master list must be a .csv or .xlsx file.")
-    os.makedirs(MASTERS_DIR, exist_ok=True)
-    rel = os.path.join("masters", f"{phase_id}{ext}")
-    with open(os.path.join(PROJECT_ROOT, rel), "wb") as f:
-        f.write(master_bytes)
-    return rel
+    name = f"masters/{phase_id}{ext}"
+    try:
+        get_store().save_file(name, master_bytes)
+    except StorageError as exc:
+        raise RuntimeError(f"Could not save the master list. {exc}") from exc
+    return name
 
 
 def create_phase(title: str, start_date: date, end_date: date, office_name: str = "",
@@ -145,8 +136,10 @@ def create_phase(title: str, start_date: date, end_date: date, office_name: str 
     data = _load()
     phase_id = f"phase-{uuid.uuid4().hex[:8]}"
     master_path = ""
+    master_version = ""
     if master_bytes:
         master_path = _store_master_file(phase_id, master_bytes, master_filename)
+        master_version = uuid.uuid4().hex[:8]
     phase = {
         "id": phase_id,
         "office_name": office_name,
@@ -156,6 +149,7 @@ def create_phase(title: str, start_date: date, end_date: date, office_name: str 
         "google_sheet_url": google_sheet_url,
         "master_sheet_url": master_sheet_url,
         "master_path": master_path,
+        "master_version": master_version,
         "zone_assignments": {},
         "center_assignments": [],
     }
@@ -201,6 +195,7 @@ def update_phase(phase_id: str, title: str = None, start_date: date = None,
         if master_bytes:
             _remove_master_file(p)
             p["master_path"] = _store_master_file(phase_id, master_bytes, master_filename)
+            p["master_version"] = uuid.uuid4().hex[:8]
         _save(data)
         return True
     return False

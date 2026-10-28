@@ -77,6 +77,8 @@ Community Cloud, or as environment variables. All are optional.
 |---|---|
 | `ADMIN_PIN` | Fixed admin PIN. It can't be changed in the app. |
 | `DEMO_MODE` | Locks phase and data-source settings. Name corrections and column mappings stay in the visitor's session. |
+| `MONGODB_URI` | Save to MongoDB Atlas instead of local files (see Storage). Ignored in `DEMO_MODE`. |
+| `MONGODB_DB` | Database name (default `nrbc_dashboard`). |
 | `REPORTING_TIMEZONE` | IANA time zone for "today" defaults (default `Africa/Blantyre`). |
 | `[initial_phase]` | The first phase, created when none exists: `office_name`, `title`, `start_date`, `end_date`, `response_sheet_url`, `master_sheet_url`. |
 
@@ -125,17 +127,46 @@ Each phase needs a list of its zones and centers with three columns:
 Google Sheet, shared the same way as the response sheet, or upload an Excel
 or CSV file. See [`examples/master_list_template.csv`](examples/master_list_template.csv).
 
-## Runtime files
+## Storage
 
-The app writes its settings next to `app.py`. These files are git-ignored
-and must never be committed, because they hold sheet links and the PIN hash:
+What admins change is saved in one of two places:
 
-- `config.json`: admin PIN hash and confirmed column mapping
-- `phases.json`: phases, their sheet links and name corrections
-- `masters/`: uploaded master lists
+| Saved item | Local files (default) | MongoDB (`MONGODB_URI` set) |
+|---|---|---|
+| Admin PIN hash, confirmed column mapping | `config.json` | `settings` collection, `_id: "config"` |
+| Phases, sheet links, name corrections | `phases.json` | `settings` collection, `_id: "phases"` |
+| Uploaded master lists | `masters/` | `files` collection |
 
-On Streamlit Community Cloud, local files reset when the app restarts.
-Use the `[initial_phase]` setting so the deployment comes back set up.
+Local files suit a host with a persistent disk. They are git-ignored and must
+never be committed, because they hold sheet links and the PIN hash.
+
+Hosts such as Streamlit Community Cloud wipe local files on restart, so a live
+deployment there should set `MONGODB_URI`:
+
+1. In MongoDB Atlas, create a database user and copy the `mongodb+srv://`
+   connection string (Database, Connect, Drivers).
+2. Under Network Access, allow the host's IP addresses. Streamlit Community
+   Cloud has no fixed IP, so it needs `0.0.0.0/0` with a strong password.
+3. Put `MONGODB_URI` in the host's secrets. Phases are then created in the app
+   as usual, and survive restarts.
+
+`DEMO_MODE` always uses local files and never connects to a database, even
+when `MONGODB_URI` is set. The demo resets on restart and the `[initial_phase]`
+setting brings its phase back.
+
+## One codebase, demo and live
+
+Deploy the same repo twice with different settings:
+
+| | Public demo | Live |
+|---|---|---|
+| `DEMO_MODE` | `true` | not set |
+| `ADMIN_PIN` | published demo PIN | private PIN, or not set (PIN managed in the app) |
+| `[initial_phase]` | fictional sheets or `examples/demo` CSVs | optional |
+| `MONGODB_URI` | not set | set, unless the host keeps local files |
+
+Real sheet links, PINs and connection strings live only in the live host's
+settings, never in the repo.
 
 ## Security note
 

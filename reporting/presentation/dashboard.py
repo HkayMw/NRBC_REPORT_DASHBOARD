@@ -6,7 +6,6 @@ coordinates widgets and application services; data preparation now happens in
 ``reporting.application.reporting_pipeline``.
 """
 
-import os
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 import streamlit as st
@@ -37,11 +36,12 @@ from reporting.infrastructure.master_reference_repository import (
 )
 from reporting.infrastructure.phase_repository import (
     list_phases, get_active_phase, set_active_phase, create_phase,
-    update_active_phase, update_phase, delete_phase, phase_dates, master_file_for,
+    update_active_phase, update_phase, delete_phase, phase_dates, read_master_file,
     load_zone_assignments, save_zone_assignment,
     load_center_assignments, save_center_assignment,
 )
 from reporting.infrastructure.settings import get_flag, get_setting
+from reporting.infrastructure.storage import StorageError, get_store
 from reporting.presentation.auth import (
     is_default_pin_active, pin_is_managed_by_settings, set_pin, verify_pin,
 )
@@ -195,7 +195,12 @@ def _render_create_phase_form():
             st.rerun()
 
 
-phase = get_active_phase()
+try:
+    phase = get_active_phase()
+except StorageError as exc:
+    st.title("🧾 Daily Reporting Dashboard")
+    st.error(f"Couldn't load the saved settings. {exc}")
+    st.stop()
 office_name = (phase or {}).get("office_name", "").strip()
 st.title(f"🧾 {office_name}" if office_name else "🧾 Daily Reporting Dashboard")
 if office_name:
@@ -274,6 +279,7 @@ if is_admin and DEMO_MODE:
     st.caption("Phase and data-source settings are locked in this demo.")
 if can_manage:
     with st.expander("🗃️ Phases / Activities (admin)"):
+        st.caption(f"Phases, name corrections and the admin PIN are saved in {get_store().describe()}.")
         all_phases = list_phases()
         labels = {p["id"]: f"{p['title']} ({p['start_date']} – {p['end_date']})" for p in all_phases}
         ids = [p["id"] for p in all_phases]
@@ -485,18 +491,18 @@ raw_df = apply_mapping(raw_df, mapping)
 # Master list of zones and centers for this phase (linked sheet or upload)
 # ------------------------------------------------------------------
 @st.cache_data(ttl=900, show_spinner="Loading the master list of zones and centers...")
-def _cached_master(sheet_url, file_path, file_mtime, refresh_token):
-    return load_master(sheet_url=sheet_url, file_path=file_path)
+def _cached_master(sheet_url, master_name, master_version, refresh_token):
+    # master_version changes on every upload, so a new file is never served from cache.
+    data = read_master_file(master_name) if master_name and not sheet_url else None
+    return load_master(sheet_url=sheet_url, file_bytes=data, filename=master_name)
 
 
-_master_file = master_file_for(phase)
-_master_mtime = os.path.getmtime(_master_file) if _master_file and os.path.exists(_master_file) else None
 try:
     master_df = _cached_master(
-        phase.get("master_sheet_url", ""), _master_file, _master_mtime,
-        st.session_state.sheet_refresh_token,
+        phase.get("master_sheet_url", ""), phase.get("master_path", ""),
+        phase.get("master_version", ""), st.session_state.sheet_refresh_token,
     )
-except MasterListError as exc:
+except (MasterListError, StorageError) as exc:
     if is_admin:
         st.error(f"{exc} Fix it under Phases / Activities above.")
     else:
