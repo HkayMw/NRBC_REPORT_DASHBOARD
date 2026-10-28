@@ -1,0 +1,23 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Runtime state written by the app. Never commit it: it holds sheet links,
+# the admin PIN hash, phases, master lists and name corrections.
+config.json
+phases.json
+masters/
+
+# Local files
+*.zip
+*.xlsx
+!examples/*.xlsx
+.streamlit/secrets.toml
+.env
+.vscode/
+.claude/
